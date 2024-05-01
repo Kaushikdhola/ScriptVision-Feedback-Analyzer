@@ -1,0 +1,455 @@
+<html>
+<head>
+<link href="{{url_for('static',filename='css/styles.css')}}" rel="stylesheet">
+<!--    <link rel="stylesheet" href="assets/css/style.min.css">-->
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap&subset=cyrillic" rel="stylesheet">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="main">
+<div class="header">
+        <a href="/" class="logo"; ><b>ImageToText</b></a>
+  <div class="header-right" style="margin-left:500px;">
+      <a href="/start"><b>Home</b></a>
+      <a href="/uploader"><b>Prediction</b></a>
+	  <a href="/logout"><b>Signout &nbsp</b><i class="fa fa-sign-out"></i></a>
+  </div>
+</div>
+	<svg style="display: none">
+		<symbol id="plus" viewbox="0 0 281.488 281.488">
+			<g>
+				<path d="M140.744,0C63.138,0,0,63.138,0,140.744s63.138,140.744,140.744,140.744s140.744-63.138,140.744-140.744
+				S218.351,0,140.744,0z M140.744,263.488C73.063,263.488,18,208.426,18,140.744S73.063,18,140.744,18
+				s122.744,55.063,122.744,122.744S208.425,263.488,140.744,263.488z"/>
+				<path d="M210.913,131.744h-61.168V70.576c0-4.971-4.029-9-9-9s-9,4.029-9,9v61.168H70.576c-4.971,0-9,4.029-9,9s4.029,9,9,9h61.168
+				v61.168c0,4.971,4.029,9,9,9s9-4.029,9-9v-61.168h61.168c4.971,0,9-4.029,9-9S215.883,131.744,210.913,131.744z"/>
+			</g>
+		</symbol>
+	</svg>
+
+	<div class="wrapper">
+        <div class="container">
+			<div class="to-do">
+				<div class="to-do__inner">
+					<input class="input" id="input" type="text" placeholder="Type your labels...">
+					<button class="to-do__add" id="add">
+						<svg class="to-do__icon">
+							<use xlink:href="#plus"></use>
+						</svg>
+					</button>
+				</div>
+	 <div class="containerr" id="listss">
+				<ul class="list" id="list">
+
+				</ul>
+
+			</div>
+		</div>
+            <form action="/home" method="post" onsubmit="final()">
+<button class="btn" id="clear">Done</button>
+                <input type="text" name="abc" hidden id="aa">
+            </form>
+                <footer class="footer">
+			<div class="container">
+				<div class="text-right">
+
+				</div>
+			</div>
+		</footer>
+
+	</div>
+
+    </div>
+</div>
+
+</body>
+<style>
+
+.main{
+ position: relative;
+}
+
+.header {
+  overflow: hidden;
+  padding: 15px 10px;
+}
+
+.header a {
+  float: left;
+  color: #2c5364;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 30px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+
+.header a.logo {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+
+.header a:hover {
+  background-color: #0f2027;
+  background: linear-gradient(to right,#2c5364, #203a43, #0f2027);
+  color: white;
+}
+
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+.header-right {
+margin-left:800px;
+  float: right;
+  color:white;
+}
+/* Default styles */
+html {
+    font-size: 15px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+  background-image:url("../static/28.png");
+}
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+.wrapper {
+    height: 100vh;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.input {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    width: 100%;
+    color: #000;
+    outline: 0;
+    border: 0;
+    padding: 1.2rem 5.2rem 1.2rem 2.8rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.input::-webkit-input-placeholder {
+    color: #A9A9A9;
+}
+
+.input::-moz-placeholder {
+    color: #A9A9A9;
+}
+
+.input:-ms-input-placeholder {
+    color: #A9A9A9;
+}
+
+.input::-ms-input-placeholder {
+    color: #A9A9A9;
+}
+
+.input::placeholder {
+    color: #A9A9A9;
+}
+
+.to-do {
+    padding-top: 4rem;
+    height: 100%;
+}
+
+.to-do__inner {
+    position: relative;
+}
+
+.to-do__add {
+    width: 25px;
+    height: 25px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 2.8rem;
+    z-index: 1;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.to-do__add:hover .to-do__icon {
+    fill: #777;
+}
+
+.to-do__icon {
+    width: 25px;
+    height: 25px;
+    fill: #A9A9A9;
+    -webkit-transition: fill .2s linear;
+    transition: fill .2s linear;
+}
+
+.list {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    list-style: none;
+    margin-top: 2rem;
+    margin-bottom: 0;
+    padding: 0 0 0 2rem;
+}
+
+.list__item {
+    align-self: flex-start;
+    display: -webkit-box;
+    display: flex;
+    cursor: pointer;
+    margin-bottom: .5rem;
+    border-radius: 10px;
+    padding: .7rem;
+    -webkit-transition: background-color .2s linear;
+    transition: background-color .2s linear;
+}
+
+.list__item:last-child {
+    margin-bottom: 0;
+}
+
+.list__item:hover {
+      background-color: #0f2027;
+  background: linear-gradient(to left,#2c5364, #203a43, #0f2027);
+  color:white;
+}
+
+.list__item:hover .list__text:after {
+    width: 100%;
+    right: 0;
+}
+
+.list__item.active {
+    background-color: #f35151;
+}
+
+.list__text {
+    position: relative;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+.containerr{
+  position:relative;
+  width: 250px;
+  height: 300px;
+  padding: 10px;
+  background: transparent;
+  border-radius:4px;
+  margin: 25px 0;
+  text-align:center;
+   overflow: auto;
+  margin-left:500px;
+}
+
+
+.list__text:after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 1;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    content: "";
+    background-color: #000;
+    width: 0;
+    height: 2px;
+    -webkit-transition: width .2s linear;
+    transition: width .2s linear;
+}
+
+.btn {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 1.47rem;
+    cursor: pointer;
+     background-color: #0f2027;
+  background: linear-gradient(to left,#2c5364, #203a43, #0f2027);
+  color: white;
+    padding: 0.93rem 3.73rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    -webkit-transition: color .2s linear, background-color .2s linear;
+    transition: color .2s linear, background-color .2s linear;
+  margin-left:500px;
+}
+
+.btn:hover {
+    background-color: #000;
+    color: ;
+}
+
+.footer {
+    padding-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+</style>
+<script>
+'use strict';
+
+const input = document.getElementById('input');
+const addBtn = document.getElementById('add');
+const clearBtn = document.getElementById('clear');
+const list = document.getElementById('list');
+var lists = [];
+addBtn.addEventListener('click', createElement);
+
+function createElement() {
+	let value = input.value;
+	if (value === '') {
+		return;
+	}
+	input.value = ''; //clearing the input field
+    lists.push(value);
+	const item = document.createElement('li');
+	item.className = 'list__item';
+	list.append(item);
+	const text = document.createElement('div');
+	text.className = 'list__text';
+	text.innerHTML = value;
+	item.append(text);
+	deleteElement();
+	deleteElementt();
+};
+
+function deleteElementt () {
+	const listItems = document.querySelectorAll('.list__text');
+	for (let element of listItems) {
+
+		element.addEventListener('click', function(){
+<!--		const lis= document.querySelector('.list__text');-->
+		var dlt = element.innerHTML;
+
+		for( var i = 0; i < lists.length; i++){
+   if ( lists[i] === dlt) {
+     lists.splice(i, 1);
+   }
+}
+
+<!--console.log(lis.innerHTML);-->
+		element.remove();
+		});
+	}
+};
+
+
+function deleteElement () {
+	const listItems = document.querySelectorAll('.list__item');
+	for (let element of listItems) {
+
+		element.addEventListener('click', function(){
+<!--		const lis= document.querySelector('.list__text');-->
+		var dlt = element.innerHTML;
+
+		for( var i = 0; i < lists.length; i++){
+   if ( lists[i] === dlt) {
+     lists.splice(i, 1);
+   }
+}
+
+<!--console.log(lis.innerHTML);-->
+		element.remove();
+		});
+	}
+};
+
+input.addEventListener("keypress", (keyPressed) => {
+	const keyEnter = 13;
+	if (keyPressed.keyCode == keyEnter) {
+		createElement();
+	}
+});
+
+function final()
+{
+var json=JSON.stringify(lists);
+document.getElementById("aa").value=json;
+}
+</script>
+
+</html>
